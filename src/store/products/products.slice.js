@@ -9,6 +9,7 @@ export const productsSlice = createSlice({
     initialState: INITIAL_PRODUCTS_STATE,
     reducers: {
         setProducts(state, action) {
+            // remains immutible under the hood
             state.products = action.payload;
         },
     }

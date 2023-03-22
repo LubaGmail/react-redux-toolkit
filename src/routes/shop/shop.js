@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import CategoriesPreview from '../categories-preview/categories-preview'
 import Category from '../category/category'
 import { getCategories } from '../../utils/firebase/firebase'
+import { setCategories } from '../../store/categories/categories.slice';
 
 const Shop = () => {
     const dispatch = useDispatch();
@@ -12,11 +13,7 @@ const Shop = () => {
     useEffect(() => {
         const getData = async () => {
             const categories = await getCategories();
-            
-            dispatch({
-                type: 'categories/SET_CATEGORIES',
-                payload: categories
-            })
+            dispatch(setCategories(categories));
         };
     
         getData();
