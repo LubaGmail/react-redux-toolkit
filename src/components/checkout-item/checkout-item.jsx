@@ -1,6 +1,7 @@
 import { useRef } from "react"
 import { useSelector, useDispatch } from "react-redux"
 
+import { addCartItem, subtractCartItem, removeCartItem } from "../../store/cart/cart.slice"
 
 import { ImageContainer, ClickableSpan, ClickableTd } from './checkout-item.styles'
 
@@ -12,23 +13,19 @@ const CheckoutItem = ({ item }) => {
 
     const quantityRef = useRef()
   
-    const subtractQuantity = () => {
+    const onSubtractQuantity = () => {
         let x = parseInt( (quantityRef.current.innerText).toString() )
         if  (!(x < 2) ) {
-
-            quantityRef.current.innerText = x.toString()
+            dispatch(subtractCartItem(item))
         }
     }
     
-    const addQuantity = () => {
-        let x = parseInt( (quantityRef.current.innerText).toString() )
-
-
-        quantityRef.current.innerText = x.toString()
+    const onAddQuantity = () => {
+        dispatch(addCartItem(item))
     }
 
     const handleRemoveItem = () => {
-
+        dispatch(removeCartItem(item))
     }
 
     return (
@@ -38,9 +35,9 @@ const CheckoutItem = ({ item }) => {
             </ImageContainer>
             <td>{name}</td>
             <td >
-                <ClickableSpan onClick={subtractQuantity}>  &#10094; </ClickableSpan>
+                <ClickableSpan onClick={onSubtractQuantity}>  &#10094; </ClickableSpan>
                 <span ref={quantityRef}>{quantity}</span>
-                <ClickableSpan onClick={addQuantity}>  &#10095; </ClickableSpan>
+                <ClickableSpan onClick={onAddQuantity}>  &#10095; </ClickableSpan>
             </td>
             <td>${price}</td>
             <ClickableTd  onClick={handleRemoveItem}>

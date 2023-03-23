@@ -18,8 +18,22 @@ const addItemToCart = ([...updatedItems], { ...updatedItem }) => {
             return el
         })
     }
-        
     return updatedItems
+}
+
+const subtractItemFromCart = ([...updatedItems], { ...updatedItem }) => {
+    updatedItems = updatedItems.map(el => {
+        if (el.id === updatedItem.id) {
+            el.quantity--
+        } 
+        return el
+    })
+    return updatedItems
+}
+
+const removeItemFromCart = ([...updatedItems], { ...updatedItem }) => {
+    updatedItems = updatedItems.filter(el => el.id !== updatedItem.id);
+    return updatedItems;
 }
 
 export const cartSlice = createSlice({
@@ -30,7 +44,15 @@ export const cartSlice = createSlice({
             state.isCartOpen = !state.isCartOpen
         },
         addCartItem(state, action) {
-            let updatedItems = addItemToCart(state.cartItems, action.payload)
+            let updatedItems = addItemToCart(state.cartItems, action.payload);
+            state.cartItems = updatedItems;
+        },
+        subtractCartItem(state, action) {
+            let updatedItems = subtractItemFromCart(state.cartItems, action.payload);
+            state.cartItems = updatedItems;
+        },
+        removeCartItem(state, action) {
+            let updatedItems = removeItemFromCart(state.cartItems, action.payload);
             state.cartItems = updatedItems;
         },
         clearCart(state, action) {
@@ -39,7 +61,7 @@ export const cartSlice = createSlice({
     }
 });
 
-export const { setIsCartOpen, addCartItem, clearCart } = cartSlice.actions;
+export const { setIsCartOpen, addCartItem, subtractCartItem, removeCartItem, clearCart } = cartSlice.actions;
 export const cartReducer = cartSlice.reducer;
 
 
