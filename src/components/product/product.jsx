@@ -1,15 +1,16 @@
 import { useDispatch , useSelector} from 'react-redux';
 
+import { addCartItem } from '../../store/cart/cart.slice';
+
 import { ProductContainer, FooterContainer } from './product.styles';
 
 const Product = ({ product }) => {
     const { name, imageUrl, price } = product;
  
-    const cartItems = []
     const dispatch = useDispatch()
 
-    const addCartItem = (product) => {
-
+    const addItemToCart = (product) => {
+        dispatch(addCartItem(product))
     }
 
     return (
@@ -20,7 +21,7 @@ const Product = ({ product }) => {
                 <span className='name'>{name}</span>
                 <span className='price'>${price}</span>
             </FooterContainer>
-            <button onClick={ () => addCartItem (product)}
+            <button onClick={ () => addItemToCart (product)}
             >
                 Add to cart
             </button>

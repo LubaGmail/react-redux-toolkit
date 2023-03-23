@@ -1,16 +1,18 @@
 import { useSelector, useDispatch } from 'react-redux'
 
-import CheckoutItem from '../checkout-item/checkout-item'
+import CheckoutItem from '../checkout-item/checkout-item';
+import { selectCartItems, selectCartTotalCost } from '../../store/cart/cart.selectors';
+import { clearCart } from '../../store/cart/cart.slice';
 
 import { CheckoutContainer } from "./checkout-list.styles"
 
 const CheckoutList = () => {
-    const cartItems = []
-    const totalCost = 0
+    const cartItems = useSelector(selectCartItems);
+    const cartTotalCost = useSelector(selectCartTotalCost)
     const dispatch = useDispatch()
 
-    const clearCart = () => {
-       
+    const onClearCart = () => {
+       dispatch(clearCart())
     }
     
     return (
@@ -36,12 +38,12 @@ const CheckoutList = () => {
                     <tfoot>
                         <tr>
                             <th colSpan={2}>Total Cost: </th>
-                            <td colSpan={4}>${totalCost}</td>
+                            <td colSpan={4}>${cartTotalCost}</td>
                         </tr>
                     </tfoot>
                 </table>
 
-                <button onClick={clearCart} disabled={cartItems.length === 0} >
+                <button onClick={onClearCart} disabled={cartItems.length === 0} >
                     Clear Cart 
                 </button>
             </CheckoutContainer>

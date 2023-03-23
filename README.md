@@ -17,4 +17,5 @@ from Redux to @redux/toolkit
     store/products
         replace products.reducer and products.type with products.slice
 
-    
+How toolkit reducer objects remain immutable?
+    Redux Toolkit allows you to "mutate" the state by using the Immer package to create a proxied draft version of the state. You can safely mutate the state variable in your reducer functions because it is a proxy object and not the true state. Behind the scenes, your mutations of the proxy are used to return a fresh copy of the state that reflects your changes.   

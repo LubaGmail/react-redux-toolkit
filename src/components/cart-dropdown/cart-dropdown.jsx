@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
 
 import { setIsCartOpen } from "../../store/cart/cart.slice";
+import { selectCartItems } from "../../store/cart/cart.selectors";
 import CartItem from '../cart-item/cart-item'
 
 import {
@@ -15,7 +16,8 @@ const CartDropdown = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const cartItems = [];
+    const cartItems = useSelector(selectCartItems);
+    
     const handleClick = () => {
         dispatch(setIsCartOpen());
         navigate('/checkout')
