@@ -12,6 +12,8 @@ Redux
 from Redux to @redux/toolkit
     store.js
         replace createStore with createSlice
+    root-reducer.js
+        add productsReducer to combinedReducers
     store/products
         replace products.reducer and products.type with products.slice
 

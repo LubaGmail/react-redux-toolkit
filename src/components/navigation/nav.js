@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom"
 import { useContext } from 'react';
 import { useSelector } from "react-redux";
 
+import { selectIsCartOpen } from "../../store/cart/cart.selectors";
 import { UserContext } from '../../contexts/user-context';
 import { signOutUser } from "../../utils/firebase/firebase";
 import { ReactComponent as CrownLogo } from '../../assets/crown.svg'
@@ -17,7 +18,7 @@ import {
 
 const Nav = () => {
     const { currentUser, setCurrentUser } = useContext(UserContext);
-    const cartOpen = false;
+    const isCartOpen = useSelector(selectIsCartOpen);
     
     const handleSignout = async () => {
         await signOutUser();
@@ -60,7 +61,7 @@ const Nav = () => {
                     <CartIcon />
                 </NavLinks>
 
-                { cartOpen && <CartDropdown /> }
+                { isCartOpen && <CartDropdown /> }
                
             </NavContainer>
             
